@@ -1,5 +1,6 @@
 ﻿using ApiLibros.Areas.Identity.Data;
 using ApiLibros.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
@@ -31,6 +32,7 @@ namespace ApiLibros.Controllers.Identity
 
         
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<ApiLibrosUser>> PostAspNetUser([FromBody] ApiLibrosUser aspNetUser)
         {
             var user = CreateUser();
@@ -67,6 +69,7 @@ namespace ApiLibros.Controllers.Identity
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult> GetLogOut()
         {
             await _signInManager.SignOutAsync();

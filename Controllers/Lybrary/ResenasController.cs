@@ -9,6 +9,7 @@ using ApiLibros.Data;
 using ApiLibros.Models.Library.Resenas;
 using AutoMapper;
 using ApiLibros.Models.Library.Libros;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiLibros.Controllers.Lybrary
 {
@@ -27,6 +28,7 @@ namespace ApiLibros.Controllers.Lybrary
 
         // GET: api/Resenas
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<DTOResena>>> GetResenas()
         {
             var resenas = await _context.Resenas.ToListAsync();
@@ -37,6 +39,7 @@ namespace ApiLibros.Controllers.Lybrary
 
         // GET: api/Resenas/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<DTOResena>> GetResenaById(int id)
         {
             var resena = await _context.Resenas.FindAsync(id);
@@ -53,6 +56,7 @@ namespace ApiLibros.Controllers.Lybrary
 
         // GET: api/Resenas/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<List<DTOResena>>> GetResenaByBookId(int id)
         {
             var resenas = await _context.Resenas.Where(e => e.Idlibro.Equals(id)).ToListAsync();
@@ -65,6 +69,7 @@ namespace ApiLibros.Controllers.Lybrary
         // PUT: api/Resenas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutResena(int id, [FromBody] DTOResena resenadto)
         {
             if (id != resenadto.Idresena)
@@ -109,6 +114,7 @@ namespace ApiLibros.Controllers.Lybrary
         // POST: api/Resenas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<DTOResena>> PostResena(DTOResena resenadto)
         {
             //Validación de libro
@@ -136,6 +142,7 @@ namespace ApiLibros.Controllers.Lybrary
 
         // DELETE: api/Resenas/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteResena(int id)
         {
             var resena = await _context.Resenas.FindAsync(id);

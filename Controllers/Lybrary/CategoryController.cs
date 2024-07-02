@@ -1,6 +1,7 @@
 ﻿using ApiLibros.Data;
 using ApiLibros.Models.Library.Category;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,7 @@ namespace ApiLibros.Controllers.Lybrary
 
         // GET: api/Category
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<DTOCategory>>> GetCategories()
         {
             var categories = await _context.Categoria.ToListAsync();
@@ -30,6 +32,7 @@ namespace ApiLibros.Controllers.Lybrary
 
         // GET: api/Category/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Categorium>> GetCategoryById(int id)
         {
             var categorium = await _context.Categoria.FindAsync(id);
@@ -47,6 +50,7 @@ namespace ApiLibros.Controllers.Lybrary
         // PUT: api/Category/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutCategory(int id, [FromBody] DTOCategory categoriumdto)
         {
             if (id != categoriumdto.Idcategoria)
@@ -85,6 +89,7 @@ namespace ApiLibros.Controllers.Lybrary
         // POST: api/Category
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<DTOCategory>> PostCategory([FromBody] DTOCategory categoriumdto)
         {
             //Mapper DTOCategory to Categorium            
@@ -100,6 +105,7 @@ namespace ApiLibros.Controllers.Lybrary
 
         // DELETE: api/Category/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             //Validación de libros con categoria

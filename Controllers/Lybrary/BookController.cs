@@ -1,6 +1,7 @@
 ﻿using ApiLibros.Data;
 using ApiLibros.Models.Library.Libros;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,7 @@ namespace ApiLibros.Controllers.Lybrary
 
         // GET: api/Book
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<DTOLibro>>> GetBooks()
         {
             var libros = await _context.Libros.Include("IdcategoriaNavigation").ToListAsync();
@@ -31,6 +33,7 @@ namespace ApiLibros.Controllers.Lybrary
 
         // GET: api/Book/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<DTOLibro>> GetBookById(int id)
         {
             var libro = _context.Libros.Include("IdcategoriaNavigation").Where(x => x.Idlibro.Equals(id)).First();
@@ -49,6 +52,7 @@ namespace ApiLibros.Controllers.Lybrary
         // PUT: api/Book/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutBook(int id, [FromBody] DTOLibro librodto)
         {
             if (id != librodto.Idlibro)
@@ -93,6 +97,7 @@ namespace ApiLibros.Controllers.Lybrary
         // POST: api/Book
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<DTOLibro>> PostBook([FromBody] DTOLibroPost librodto)
         {
             //Map DTOLibro to Libro
@@ -120,6 +125,7 @@ namespace ApiLibros.Controllers.Lybrary
 
         // DELETE: api/Book/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteBook(int id)
         {
             var libro = await _context.Libros.FindAsync(id);
