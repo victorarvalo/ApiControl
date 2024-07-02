@@ -32,7 +32,6 @@ namespace ApiLibros.Controllers.Identity
 
         
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<ApiLibrosUser>> PostAspNetUser([FromBody] ApiLibrosUser aspNetUser)
         {
             var user = CreateUser();
