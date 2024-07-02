@@ -69,7 +69,6 @@ namespace ApiLibros.Controllers.Identity
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult> GetLogOut()
         {
             await _signInManager.SignOutAsync();
